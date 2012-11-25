@@ -1,0 +1,39 @@
+UsersController
+  create
+
+LocationsController
+  index (find)
+    lat, long
+    adress
+    filter: inside, outside, both
+  create 
+    location
+    rating
+  show
+
+RatingsController
+  create
+
+
+user
+  id
+  name
+  email
+
+rating
+  id
+  user_id
+  place_id
+  comment
+  type
+  value
+
+location
+  id
+  lat
+  long
+  indoor
+  address
+  description
+  average
+  

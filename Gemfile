@@ -1,9 +1,6 @@
 source 'https://rubygems.org'
 gem 'rails', '3.2.8'
 #gem 'sqlite3'
-group :development, :test do
-  gem 'mysql2'
-end
 group :production do
   gem 'pg'
 end
@@ -27,3 +24,9 @@ gem "rolify", ">= 3.2.0"
 gem "twitter"
 gem "haml"
 gem "haml-rails"
+
+group :test, :development do
+  gem 'ruby-debug19', :require => 'ruby-debug'
+  gem 'api_taster'
+  gem 'mysql2'
+end

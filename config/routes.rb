@@ -4,6 +4,7 @@ Peehere::Application.routes.draw do
     resources :users
     resources :locations do
       post :rate, :on => :collection
+      get  :places, :on => :collection
     end
   end
 
@@ -23,9 +24,8 @@ Peehere::Application.routes.draw do
       post '/api/locations/rate', {
         :user_id => 1,
         :location => {
-          :address => 'Cruz Verde 16, Madrid, 28004',
-          :indoor => true,
-          :name => 'El Bonar de Leon'
+          :cache_id => 1,
+          :description => 'Hay millones de arbustos'
         },
         :ratings => [
           {:kind => 'wait',    :value => [true, false].sample },
@@ -39,14 +39,28 @@ Peehere::Application.routes.draw do
         :user_id => 1,
         :location_id => 1,
         :ratings => [
-          {:kind => 'wait',    :value => [true, false].sample },
-          {:kind => 'pay',     :value => [true, false].sample },
-          {:kind => 'paper',   :value => [true, false].sample },
+          {:kind => 'crowded', :value => [true, false].sample },
+          {:kind => 'hidden',  :value => [true, false].sample },
+          {:kind => 'safe',    :value => [true, false].sample },
           {:kind => 'overall', :value => [true, false].sample }
         ]
       }
-      get '/api/locations'
+
+
+      desc 'params [:address, :latitude, :longitude, :show => [:indoor, :outdoor, :all], :distance]'
+      get '/api/locations', {
+        latitude: 40.4238, 
+        longitude: -3.7071,
+        show: 'all',
+      }
+
       get '/api/locations/:id', {:id => 1}
+
+      desc "params[:latitude, :longitude, :address, :name]"
+      get '/api/locations/places', {
+        latitude:  40.4238, 
+        longitude: -3.7071,        
+      }
     end
   end
 end

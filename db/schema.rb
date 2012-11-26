@@ -11,18 +11,57 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121125093417) do
+ActiveRecord::Schema.define(:version => 20121125233208) do
+
+  create_table "comments", :force => true do |t|
+    t.text     "body"
+    t.integer  "user_id"
+    t.integer  "location_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "locations", :force => true do |t|
-    t.integer  "lat"
-    t.integer  "long"
+    t.float    "latitude"
+    t.float    "longitude"
     t.boolean  "indoor"
     t.string   "address"
     t.text     "description"
     t.text     "name"
     t.text     "average"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "cache_id"
+    t.integer  "people_count"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "locations", ["latitude", "longitude"], :name => "index_locations_on_latitude_and_longitude"
+
+  create_table "places_caches", :force => true do |t|
+    t.text     "reference"
+    t.string   "vicinity"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "name"
+    t.string   "icon"
+    t.text     "types"
+    t.string   "formatted_phone_number"
+    t.string   "international_phone_number"
+    t.string   "formatted_address"
+    t.string   "address_components"
+    t.string   "street_number"
+    t.string   "street"
+    t.string   "city"
+    t.string   "region"
+    t.string   "postal_code"
+    t.string   "country"
+    t.string   "rating"
+    t.string   "url"
+    t.string   "cid"
+    t.string   "website"
+    t.text     "google_place_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "ratings", :force => true do |t|

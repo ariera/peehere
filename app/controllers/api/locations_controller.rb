@@ -1,12 +1,10 @@
 module Api
   class LocationsController < ApplicationController
-    # => devolver una lista de localizaciones
-    # filtradas por indoor
-    # en función de una [lat,long] o una address
-    #
-    # cada loc
-    #   lat, log, indoor, ¿overall?
+    class Location < ::Location
+    end
+    # params [:address, :latitude, :longitude, :show => [:indoor, :outdoor, :all], :distance]
     def index
+      locations = Location.find_by_address_or_coords_and_filter(params)
       respond_to do |format|
         format.xml  { render :xml  => Location.all }
         format.json { render :json => Location.all }
@@ -25,7 +23,7 @@ module Api
       loc  = Location.find_or_create(params)
       user = User.find(params[:user_id])
       ratings = user.create_ratings(loc, params[:ratings])
-      loc.update_average!
+      loc.update_statistics!
 
       respond_to do |format|
         format.xml  { render :xml  => ratings }
@@ -33,10 +31,14 @@ module Api
       end      
     end
 
-    # por lat, long o por address 
+    # por lat, long o por address o por name
     # devolver restaurantes / bares cercanos
-    def find_around
-      
+    def places
+      locations = PlacesCache.find_places(params)
+      respond_to do |format|
+        format.xml  { render :xml  => locations.to_xml }
+        format.json { render :json => locations }
+      end
     end
 
   end

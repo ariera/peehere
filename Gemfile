@@ -24,6 +24,8 @@ gem "rolify", ">= 3.2.0"
 gem "twitter"
 gem "haml"
 gem "haml-rails"
+gem 'geocoder'
+gem 'google_places'
 
 group :test, :development do
   gem 'ruby-debug19', :require => 'ruby-debug'

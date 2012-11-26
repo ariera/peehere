@@ -1,13 +1,18 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-puts 'SETTING UP DEFAULT USER LOGIN'
-user = User.create! :name => 'First User', :email => 'user@example.com', :password => 'please', :password_confirmation => 'please'
-puts 'New user created: ' << user.name
-user2 = User.create! :name => 'Second User', :email => 'user2@example.com', :password => 'please', :password_confirmation => 'please'
-puts 'New user created: ' << user2.name
-user.add_role :admin
+u=User.create(:name => "desio", :email => "desio@gmail.com")
+1.upto(10) do |i|
+  l = Location.create(:address => "Gran Via #{i}, Madrid", indoor:false)
+  Rating.create(location_id:l.id, user_id:u.id, kind:'hidden', value:[true,false].sample)
+  Rating.create(location_id:l.id, user_id:u.id, kind:'crowded', value:[true,false].sample)
+  Rating.create(location_id:l.id, user_id:u.id, kind:'safe', value:[true,false].sample)
+  Rating.create(location_id:l.id, user_id:u.id, kind:'overall', value:[true,false].sample)
+  l.update_statistics!
+end
+
+11.upto(20) do |i|
+  l = Location.create(:address => "Gran Via #{i}, Madrid", indoor:true)
+  Rating.create(location_id:l.id, user_id:u.id, kind:'pay', value:[true,false].sample)
+  Rating.create(location_id:l.id, user_id:u.id, kind:'wait', value:[true,false].sample)
+  Rating.create(location_id:l.id, user_id:u.id, kind:'paper', value:[true,false].sample)
+  Rating.create(location_id:l.id, user_id:u.id, kind:'overall', value:[true,false].sample)
+  l.update_statistics!
+end

@@ -1,11 +1,13 @@
 class User < ActiveRecord::Base
   has_many :ratings
+  has_many :comments
 
   attr_accessible :name, :email
   validates :name, presence:true
   validates :email, presence:true 
 
   def create_ratings(loc, params)
+    raise unless loc.valid_ratings?(params)
     ratings = []
     params.each do |param|
       ratings << self.ratings.create do |r|

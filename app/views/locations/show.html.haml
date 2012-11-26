@@ -1,2 +1,33 @@
-%h1 Locations#show
-%p Find me in app/views/locations/show.html.haml
+%p#notice= notice
+
+%p
+  %b Latitude:
+  = @location.latitude
+%p
+  %b Longitude:
+  = @location.longitude
+%p
+  %b Indoor:
+  = @location.indoor
+%p
+  %b Address:
+  = @location.address
+%p
+  %b Description:
+  = @location.description
+%p
+  %b Name:
+  = @location.name
+%p
+  %b Average:
+  = @location.average
+%p
+  %b Cache:
+  = @location.cache_id
+%p
+  %b People count:
+  = @location.people_count
+
+= link_to 'Edit', edit_location_path(@location)
+\|
+= link_to 'Back', locations_path

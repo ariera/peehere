@@ -1,5 +1,9 @@
 Peehere::Application.routes.draw do
 
+  resources :users
+  resources :locations
+  resources :ratings
+
   namespace :api, defaults: {format: 'xml'} do
     resources :users
     resources :locations do

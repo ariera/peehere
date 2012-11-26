@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @rating.user_id
+%p
+  %b Location:
+  = @rating.location_id
+%p
+  %b Kind:
+  = @rating.kind
+%p
+  %b Value:
+  = @rating.value
+
+= link_to 'Edit', edit_rating_path(@rating)
+\|
+= link_to 'Back', ratings_path

@@ -1,7 +1,5 @@
 module Api
   class LocationsController < ApplicationController
-    class Location < ::Location
-    end
     # params [:address, :latitude, :longitude, :show => [:indoor, :outdoor, :all], :distance]
     def index
       locations = Location.find_by_address_or_coords_and_filter(params)

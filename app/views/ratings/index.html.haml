@@ -1,0 +1,25 @@
+%h1 Listing ratings
+
+%table
+  %tr
+    %th User
+    %th Location
+    %th Kind
+    %th Value
+    %th
+    %th
+    %th
+
+  - @ratings.each do |rating|
+    %tr
+      %td= rating.user_id
+      %td= rating.location_id
+      %td= rating.kind
+      %td= rating.value
+      %td= link_to 'Show', rating
+      %td= link_to 'Edit', edit_rating_path(rating)
+      %td= link_to 'Destroy', rating, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Rating', new_rating_path

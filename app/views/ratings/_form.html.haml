@@ -1,0 +1,22 @@
+= form_for @rating do |f|
+  -if @rating.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@rating.errors.count, "error")} prohibited this rating from being saved:"
+      %ul
+        - @rating.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :user_id
+    = f.number_field :user_id
+  .field
+    = f.label :location_id
+    = f.number_field :location_id
+  .field
+    = f.label :kind
+    = f.text_field :kind
+  .field
+    = f.label :value
+    = f.check_box :value
+  .actions
+    = f.submit 'Save'

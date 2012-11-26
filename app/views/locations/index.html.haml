@@ -1,2 +1,35 @@
-%h1 Locations#index
-%p Find me in app/views/locations/index.html.haml
+%h1 Listing locations
+
+%table
+  %tr
+    %th Latitude
+    %th Longitude
+    %th Indoor
+    %th Address
+    %th Description
+    %th Name
+    %th Average
+    %th Cache
+    %th People count
+    %th
+    %th
+    %th
+
+  - @locations.each do |location|
+    %tr
+      %td= location.latitude
+      %td= location.longitude
+      %td= location.indoor
+      %td= location.address
+      %td= location.description
+      %td= location.name
+      %td= location.average
+      %td= location.cache_id
+      %td= location.people_count
+      %td= link_to 'Show', location
+      %td= link_to 'Edit', edit_location_path(location)
+      %td= link_to 'Destroy', location, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Location', new_location_path

@@ -21,29 +21,54 @@ Peehere::Application.routes.draw do
         :email => "fred#{Time.now.to_s.gsub(' ','')}@gmail.com",
       }
 
+      # post '/api/locations/rate', {
+      #   :user_id => 1,
+      #   :location => {
+      #     :cache_id => 1,
+      #     :description => 'Hay millones de arbustos'
+      #   },
+      #   :ratings => [
+      #     {:kind => 'wait',    :value => [true, false].sample },
+      #     {:kind => 'pay',     :value => [true, false].sample },
+      #     {:kind => 'paper',   :value => [true, false].sample },
+      #     {:kind => 'overall', :value => [true, false].sample }
+      #   ]
+      # }
+
+      # post '/api/locations/rate', {
+      #   :user_id => 1,
+      #   :location_id => 1,
+      #   :ratings => [
+      #     {:kind => 'crowded', :value => [true, false].sample },
+      #     {:kind => 'hidden',  :value => [true, false].sample },
+      #     {:kind => 'safe',    :value => [true, false].sample },
+      #     {:kind => 'overall', :value => [true, false].sample }
+      #   ]
+      # }
+
       post '/api/locations/rate', {
         :user_id => 1,
         :location => {
           :cache_id => 1,
           :description => 'Hay millones de arbustos'
         },
-        :ratings => [
-          {:kind => 'wait',    :value => [true, false].sample },
-          {:kind => 'pay',     :value => [true, false].sample },
-          {:kind => 'paper',   :value => [true, false].sample },
-          {:kind => 'overall', :value => [true, false].sample }
-        ]
+        :ratings => {
+          :'wait'    => [true, false].sample,
+          :'pay'     => [true, false].sample,
+          :'paper'   => [true, false].sample,
+          :'overall' => [true, false].sample 
+        }
       }
 
       post '/api/locations/rate', {
         :user_id => 1,
         :location_id => 1,
-        :ratings => [
-          {:kind => 'crowded', :value => [true, false].sample },
-          {:kind => 'hidden',  :value => [true, false].sample },
-          {:kind => 'safe',    :value => [true, false].sample },
-          {:kind => 'overall', :value => [true, false].sample }
-        ]
+        :ratings => {
+          :'crowded' => [true, false].sample,
+          :'hidden'  => [true, false].sample,
+          :'safe'    => [true, false].sample,
+          :'overall' => [true, false].sample
+        }
       }
 
 

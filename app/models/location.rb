@@ -15,8 +15,10 @@ class Location < ActiveRecord::Base
   def self.find_or_create(params)
     if params[:location_id]
       Location.find(params[:location_id]) 
-    elsif params[:cache_id]
-      PlacesCache.where(:google_place_id => params[:cache_id]).to_location.save
+    elsif params[:location][:cache_id]
+      loc = PlacesCache.find(params[:location][:cache_id]).to_location
+      loc.save
+      loc
     else
       Location.create(params[:location])
     end
@@ -77,12 +79,20 @@ class Location < ActiveRecord::Base
     end
   end
 
+  #def valid_ratings?(params)
+  #  if self.indoor?
+  #    params.all?{ |rating| VALID_RATINGS_FOR_INDOORS.include?(rating[:kind].to_sym) }
+  #  else
+  #    params.all?{ |rating| VALID_RATINGS_FOR_OUTDOORS.include?(rating[:kind].to_sym) }
+  #  end
+  #end
+
   def valid_ratings?(params)
     if self.indoor?
-      params.all?{ |rating| VALID_RATINGS_FOR_INDOORS.include?(rating[:kind].to_sym) }
+      params.keys.all?{ |kind| VALID_RATINGS_FOR_INDOORS.include?(kind.to_sym) }
     else
-      params.all?{ |rating| VALID_RATINGS_FOR_OUTDOORS.include?(rating[:kind].to_sym) }
-    end
+      params.keys.all?{ |kind| VALID_RATINGS_FOR_OUTDOORS.include?(kind.to_sym) }
+    end    
   end
 
   def to_xml(options={})

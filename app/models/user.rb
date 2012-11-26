@@ -6,14 +6,27 @@ class User < ActiveRecord::Base
   validates :name, presence:true
   validates :email, presence:true 
 
+  #def create_ratings(loc, params)
+  #  raise unless loc.valid_ratings?(params)
+  #  ratings = []
+  #  params.each do |param|
+  #    ratings << self.ratings.create do |r|
+  #      r.location_id = loc.id
+  #      r.kind  = param[:kind]
+  #      r.value = param[:value]
+  #    end
+  #  end
+  #  ratings
+  #end
+  
   def create_ratings(loc, params)
     raise unless loc.valid_ratings?(params)
     ratings = []
-    params.each do |param|
+    params.each do |k,v|
       ratings << self.ratings.create do |r|
         r.location_id = loc.id
-        r.kind  = param[:kind]
-        r.value = param[:value]
+        r.kind  = k
+        r.value = v
       end
     end
     ratings

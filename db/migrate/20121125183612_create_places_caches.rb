@@ -22,11 +22,10 @@ class CreatePlacesCaches < ActiveRecord::Migration
       t.string :url
       t.string :cid
       t.string :website
-      t.text   :google_place_id, limit:1000
+      t.text   :google_place_id
 
       t.timestamps
     end
-    #add_index :places_caches, :google_place_id, :uniq => true
   end
 
   def down

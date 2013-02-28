@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.12'
 #gem 'sqlite3'
 group :production do
   gem 'pg'
@@ -18,7 +18,7 @@ gem "database_cleaner", ">= 0.8.0", :group => :test
 gem "launchy", ">= 2.1.2", :group => :test
 gem "factory_girl_rails", ">= 4.0.0", :group => [:development, :test]
 gem "bootstrap-sass", ">= 2.0.4.0"
-gem "devise", ">= 2.1.2"
+gem "devise", ">= 2.1.3"
 gem "cancan", ">= 1.6.8"
 gem "rolify", ">= 3.2.0"
 gem "twitter"
@@ -27,8 +27,8 @@ gem "haml-rails"
 gem 'geocoder'
 gem 'google_places'
 
+gem 'api_taster'
 group :test, :development do
   gem 'ruby-debug19', :require => 'ruby-debug'
-  gem 'api_taster'
   gem 'mysql2'
 end

@@ -12,13 +12,13 @@ Peehere::Application.routes.draw do
     end
   end
 
-  mount ApiTaster::Engine => "/api_taster" if Rails.env.development?
   root :to => "home#index"
 
 
 
 
   #if Rails.env.development?
+    mount ApiTaster::Engine => "/api_taster"
     ApiTaster.routes do
       post '/api/users', {
         :name => 'Fred',

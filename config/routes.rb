@@ -18,7 +18,7 @@ Peehere::Application.routes.draw do
 
 
 
-  if Rails.env.development?
+  #if Rails.env.development?
     ApiTaster.routes do
       post '/api/users', {
         :name => 'Fred',
@@ -83,6 +83,11 @@ Peehere::Application.routes.draw do
         show: 'all',
       }
 
+      get '/api/locations', {
+        address: 'Gran Via 32, Madrid',
+        show: 'all'
+      }
+
       get '/api/locations/:id', {:id => 1}
 
       desc "params[:latitude, :longitude, :address, :name]"
@@ -91,5 +96,5 @@ Peehere::Application.routes.draw do
         longitude: -3.7071,        
       }
     end
-  end
+  #end #if
 end

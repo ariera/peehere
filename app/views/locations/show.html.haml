@@ -1,15 +1,16 @@
 - if @location.name
-  %p
-    %b Name:
-    = @location.name
+  %h1= @location.name.capitalize
+  %br
 
 = image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@location.latitude}%2C#{@location.longitude}"
-
+%br
+%br
 
 - if @location.indoor?
   %p
     %b Address:
     = @location.address
+  %br
 - else
   %p
     %b Latitude:
@@ -17,19 +18,27 @@
   %p
     %b Longitude:
     = @location.longitude
+  %br
 
 
 - if @location.description
   %p
     %b Description:
     = @location.description
+  %br
 
 %p
-  %b Indoor:
-  = @location.indoor
+  %b Rating:
+%table
+  - @location.average.each do |rating, value|
+    %tr
+      %td= rating
+      %td &nbsp;
+      - if rating.to_s == 'overall'
+        %td #{(value*100).to_s[0..4]}%
+      - else
+        %td #{'* ' * value}
+%br
 %p
-  %b Average:
-  = @location.average
-%p
-  %b People count:
+  %b How many people has voted:
   = @location.people_count

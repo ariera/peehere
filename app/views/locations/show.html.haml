@@ -1,33 +1,40 @@
-%p#notice= notice
+- if @location.name
+  %p
+    %b Name:
+    = @location.name
 
-%p
-  %b Latitude:
-  = @location.latitude
-%p
-  %b Longitude:
-  = @location.longitude
+= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@location.latitude}%2C#{@location.longitude}"
+
+= icon_for(@location)
+:css
+  .location_icon {width:100px, height:100px, background-color:black}
+  .location_icon.tree{background-image: 'tree.png'}
+.location_icon.tree
+  \.
+- if @location.indoor?
+  %p
+    %b Address:
+    = @location.address
+- else
+  %p
+    %b Latitude:
+    = @location.latitude
+  %p
+    %b Longitude:
+    = @location.longitude
+
+
+- if @location.description
+  %p
+    %b Description:
+    = @location.description
+
 %p
   %b Indoor:
   = @location.indoor
 %p
-  %b Address:
-  = @location.address
-%p
-  %b Description:
-  = @location.description
-%p
-  %b Name:
-  = @location.name
-%p
   %b Average:
   = @location.average
 %p
-  %b Cache:
-  = @location.cache_id
-%p
   %b People count:
   = @location.people_count
-
-= link_to 'Edit', edit_location_path(@location)
-\|
-= link_to 'Back', locations_path

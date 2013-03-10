@@ -1,4 +1,4 @@
-= form_for @rating do |f|
+= form_for @rating, url: admin_rating_path do |f|
   -if @rating.errors.any?
     #error_explanation
       %h2= "#{pluralize(@rating.errors.count, "error")} prohibited this rating from being saved:"

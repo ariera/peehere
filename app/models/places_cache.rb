@@ -47,5 +47,4 @@ class PlacesCache < ActiveRecord::Base
       name: self.name
     })
   end
-
 end

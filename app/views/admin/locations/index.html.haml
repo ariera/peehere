@@ -26,10 +26,10 @@
       %td= location.average
       %td= location.cache_id
       %td= location.people_count
-      %td= link_to 'Show', location
-      %td= link_to 'Edit', edit_location_path(location)
-      %td= link_to 'Destroy', location, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'Show', admin_location_path(location)
+      %td= link_to 'Edit', edit_admin_location_path(location)
+      %td= link_to 'Destroy', admin_location_path(location), :confirm => 'Are you sure?', :method => :delete
 
 %br
 
-= link_to 'New Location', new_location_path
+= link_to 'New Location', new_admin_location_path

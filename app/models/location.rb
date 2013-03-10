@@ -99,4 +99,7 @@ class Location < ActiveRecord::Base
     super(options.merge(include: :comments))
   end
 
+
+
+
 end

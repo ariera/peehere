@@ -26,9 +26,13 @@ gem "haml"
 gem "haml-rails"
 gem 'geocoder'
 gem 'google_places'
+gem 'rails_admin'
 
 gem 'api_taster'
 group :test, :development do
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'mysql2'
+end
+group :development do
+  gem 'sextant'
 end

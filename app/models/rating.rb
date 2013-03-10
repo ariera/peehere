@@ -1,5 +1,6 @@
 class Rating < ActiveRecord::Base
   belongs_to :user
+  belongs_to :location
 
   attr_accessible :location_id, :user_id, :kind, :value
   def self.average_for_kind(kind, location_id)

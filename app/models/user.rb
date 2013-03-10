@@ -1,4 +1,12 @@
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable,
+  # :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me
   has_many :ratings
   has_many :comments
 
@@ -30,5 +38,9 @@ class User < ActiveRecord::Base
       end
     end
     ratings
+  end
+
+  def is_admin?
+    %w{nosecreoque@gmail.com ariera@gmail.com}.include? self.email
   end
 end

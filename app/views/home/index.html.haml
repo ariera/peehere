@@ -1,2 +1,8 @@
-%h1.hero
-  welcome
+- if current_user && current_user.is_admin?
+  %h2=link_to "add inside location", rate_admin_locations_path(indoor:true)
+  %h2=link_to "add outside location", rate_admin_locations_path(indoor:false)
+
+
+  %ul
+    %li= link_to 'locations', admin_locations_path
+    %li= link_to 'ratings', admin_ratings_path

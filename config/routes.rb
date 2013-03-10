@@ -1,8 +1,22 @@
 Peehere::Application.routes.draw do
 
-  resources :users
-  resources :locations
-  resources :ratings
+  devise_for :users
+  mount RailsAdmin::Engine => '/rails_admin', :as => 'rails_admin'
+
+
+  
+
+  match 'locations/:id' => 'locations#show', as: 'location'
+  #resources :users
+  namespace :admin do
+    resources :locations do
+      collection do
+        get :rate
+        post :rate
+      end
+    end
+    resources :ratings
+  end
 
   namespace :api, defaults: {format: 'xml'} do
     resources :users
@@ -24,6 +38,7 @@ Peehere::Application.routes.draw do
         :name => 'Fred',
         :email => "fred#{Time.now.to_s.gsub(' ','')}@gmail.com",
       }
+      put '/api/users/:id', {}
 
       # post '/api/locations/rate', {
       #   :user_id => 1,

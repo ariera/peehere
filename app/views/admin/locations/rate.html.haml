@@ -1,0 +1,55 @@
+%h1 New location #{@location.indoor ? 'indoor' : 'outdoor'}
+- indoor = @location.indoor
+= form_for @location, url: rate_admin_locations_path, method:'post' do |f|
+  -if @location.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@location.errors.count, "error")} prohibited this location from being saved:"
+      %ul
+        - @location.errors.full_messages.each do |msg|
+          %li= msg
+  - unless @location.new_record?
+    = hidden_field_tag :location_id, @location.id
+  .field
+    = f.label :name
+    = f.text_field :name
+  - if indoor
+    .field
+      = f.label :address
+      = f.text_field :address    
+  - else
+    .field
+      = f.label :latitude
+      = f.text_field :latitude
+    .field
+      = f.label :longitude
+      = f.text_field :longitude
+  = f.hidden_field :indoor, value:indoor
+
+  .field
+    = f.label :description
+    = f.text_field :description
+
+  - if indoor
+    - variables_to_rate = Location::VALID_RATINGS_FOR_INDOORS
+  - else
+    - variables_to_rate = Location::VALID_RATINGS_FOR_OUTDOORS
+  - variables_to_rate.each do |variable|
+    .field
+      = label_tag variable
+      %p 
+        yes
+        = radio_button_tag "ratings[#{variable}]", "true"
+        |
+        no
+        = radio_button_tag "ratings[#{variable}]", "false", true
+      %br
+
+
+
+
+
+
+  .actions
+    = f.submit 'Save'
+
+= link_to 'Back', admin_locations_path

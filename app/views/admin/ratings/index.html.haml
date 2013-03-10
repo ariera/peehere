@@ -16,10 +16,10 @@
       %td= rating.location_id
       %td= rating.kind
       %td= rating.value
-      %td= link_to 'Show', rating
-      %td= link_to 'Edit', edit_rating_path(rating)
-      %td= link_to 'Destroy', rating, :confirm => 'Are you sure?', :method => :delete
+      %td= link_to 'Show', admin_rating_path(rating)
+      %td= link_to 'Edit', edit_admin_rating_path(rating)
+      %td= link_to 'Destroy', admin_rating_path(rating), :confirm => 'Are you sure?', :method => :delete
 
 %br
 
-= link_to 'New Rating', new_rating_path
+= link_to 'New Rating', new_admin_rating_path

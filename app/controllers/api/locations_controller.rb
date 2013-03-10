@@ -20,6 +20,7 @@ module Api
     def rate
       loc  = Location.find_or_create(params)
       user = User.find(params[:user_id])
+      #comment = Comment.create(location_id:loc.id, user:user.id, body:params[:comment]) if params[:comment]
       ratings = user.create_ratings(loc, params[:ratings])
       loc.update_statistics!
 

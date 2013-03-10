@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  http_basic_authenticate_with :name => "wepeehere", :password => "dickface123"
+  http_basic_authenticate_with(:name => "wepeehere", :password => "dickface123") unless Rails.env.development?
+
   # GET /users
   # GET /users.json
   def index

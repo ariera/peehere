@@ -31,7 +31,11 @@ class User < ActiveRecord::Base
     user = find_by_email(params[:email])
     return user if user
     create do |u|
-      u.name = params[:name] || params[:email].split('@').first + '@' + Devise.friendly_token[0,6]
+      if params[:name].blank?
+        u.name =  params[:email].split('@').first + '@' + Devise.friendly_token[0,6]
+      else
+        u.name = params[:name]
+      end
       u.email = params[:email]
       u.password = Devise.friendly_token[0,20]
     end

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class Location < ActiveRecord::Base
   has_many :ratings
   has_many :comments
@@ -89,6 +90,7 @@ class Location < ActiveRecord::Base
   #end
 
   def valid_ratings?(params)
+    return true if params.blank?
     if self.indoor?
       params.keys.all?{ |kind| VALID_RATINGS_FOR_INDOORS.include?(kind.to_sym) }
     else
@@ -102,9 +104,54 @@ class Location < ActiveRecord::Base
   
   def to_tweet
     url = Rails.application.routes.url_helpers.location_url(self)
-    "http://twitter.com/home?status=Don't worry, pee happy. #{CGI::escape(url)} @peehere"
+    url = 'http://pee-here.com'
+    "http://twitter.com/home?status=#{random_tweet} #{CGI::escape(url)} @peehere"
   end
 
+  def random_tweet
+    @@possible_tweets.sample
+  end
+  @@possible_tweets = [
+    "Don't worry, pee happy",
+    "Orina como en casa",
+    "Orina en publico como si estuvieses en casa",
+    "Llego la aplicación móvil para que orines donde mas te guste.",
+    "Orina a domicilio", 
+    "Pee Here. Orina donde quieras",
+    "Psssss. Necesitas ir al baño? Pee Here esta desocupado",
+    "Te estas orinando? Pee Here te echa una mano",
+    "Ven a orinar con nosotros",
+    "Lugares orinables full time",
+    "Si te estas por mear, meate con nosotros",
+    "Orina aquí. Y ahí. Tambien allí",
+    "Libera la orina que llevas en ti",
+    "Tenemos el lugar indicado para que satisfagas tus necesidades",
+    "En apuros? Lo siento", 
+    "En Pee Here sabemos donde hay papel higienico",
+    "No esperes, Pee Here",
+    "You’ll never pee alone",
+    "Programa tu orina",
+    "Support your team with our app",
+    "In peeing we believe",
+    "Te estas meando? Vete al baño",
+    "Pee Here: mobile bathrooms",
+    "Te damos un chocolate por cada descarga",
+    "Pruebanos  y si no te convence te devolvemos la orina sin ningún cargo",
+    "Si descargas Pee Here te comentaremos las fotos del Facebook que menos feedback hayan tenido",
+    "Te queremos. Ver mear",
+    "Velamos por la seguridad de tu orina",
+    "Para cuando tengas necesidades en la calle, Pee Here",
+    "Pee here te evita infecciones de orina",
+    "Seis de cada diez personas recomienda que “orinar” es saludable. Somos mayoría.",
+    "Esto es una dictadura: te obligamos a que orines en uno (o todos) nuestros lugares públicos.",
+    "Tu novio te engaña? Ok, solo por esta vez te dejamos que nos cambies: Pee on Him.",
+    "Vente de gira con Pee Here. Haremos botellón en el lugar publico mas votado",
+    "Si te estas orinando, nos querras en tus manos",
+    "Antes de mear necesitaras saber el lugar",
+    "Si nuestra App no te sirve, vendemos papel higienico o te prestamos un Kleenex a un euro",
+    "Ya sabes el lugar, solo dale a “Confirmar”",
+    "Porque el bano es el espacio mas intimo, Pee Here te hace de mejor amigo o de momento reflexivo",
+  ]
 
 
 

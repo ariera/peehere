@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
 
   def create_ratings(loc, params)
     raise unless loc.valid_ratings?(params)
+    return if params.blank?
     ratings = []
     params.each do |k,v|
       ratings << self.ratings.create do |r|

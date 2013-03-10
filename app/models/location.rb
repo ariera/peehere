@@ -42,12 +42,12 @@ class Location < ActiveRecord::Base
   end
 
   def update_people_count
-    self.people_count = self.ratings.group(:user_id).length
+    # self.people_count = self.ratings.group(:user_id).length
+    self.people_count = self.ratings.select('ratings.id, ratings.user_id').group_by(&:user_id).length
   end
 
   def update_average
     if self.indoor?
-      self.average = calculate_indoor_average
     else
       self.average = calculate_outdoor_average
     end

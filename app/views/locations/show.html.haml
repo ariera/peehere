@@ -5,18 +5,7 @@
 
 = image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@location.latitude}%2C#{@location.longitude}"
 
-= icon_for(@location)
-:css
-  .location_icon {width:100px, height:100px, background-color:black}
-  .location_icon.tree{
-    background-image: url('tree.png'); 
-    display: inline-block;
-    height: 16px;
-    width: 16px;
-    background-position: 0 0;
-  }
-.location_icon.tree
-  \.
+
 - if @location.indoor?
   %p
     %b Address:

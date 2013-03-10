@@ -99,6 +99,11 @@ class Location < ActiveRecord::Base
   def to_xml(options={})
     super(options.merge(include: :comments))
   end
+  
+  def to_tweet
+    url = Rails.application.routes.url_helpers.location_url(self)
+    "http://twitter.com/home?status=Don't worry, pee happy. #{CGI::escape(url)} @peehere"
+  end
 
 
 

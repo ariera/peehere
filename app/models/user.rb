@@ -27,6 +27,16 @@ class User < ActiveRecord::Base
   #  ratings
   #end
   
+  def self.find_or_create(params)
+    user = find_by_email(params[:email])
+    return user if user
+    create do |u|
+      u.name = params[:name] || params[:email].split('@').first + '@' + Devise.friendly_token[0,6]
+      u.email = params[:email]
+      u.password = Devise.friendly_token[0,20]
+    end
+  end
+
   def create_ratings(loc, params)
     raise unless loc.valid_ratings?(params)
     ratings = []
@@ -41,6 +51,6 @@ class User < ActiveRecord::Base
   end
 
   def is_admin?
-    %w{nosecreoque@gmail.com ariera@gmail.com}.include? self.email
+    %w{wepeehere@gmail.com ariera@gmail.com}.include? self.email
   end
 end

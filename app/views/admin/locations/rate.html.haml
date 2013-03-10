@@ -39,9 +39,12 @@
       %p 
         yes
         = radio_button_tag "ratings[#{variable}]", "true"
-        |
+        \|
         no
-        = radio_button_tag "ratings[#{variable}]", "false", true
+        = radio_button_tag "ratings[#{variable}]", "false"
+        \|
+        don't know
+        = radio_button_tag "", nil, true
       %br
 
 

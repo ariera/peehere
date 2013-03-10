@@ -25,7 +25,7 @@ module Api
       loc.update_statistics!
 
       respond_to do |format|
-        format.xml  { render :xml  => ratings }
+        format.xml  { render :xml  => loc.to_tweet }
         format.json { render :json => ratings }
       end      
     end

@@ -48,6 +48,7 @@ class Location < ActiveRecord::Base
 
   def update_average
     if self.indoor?
+      self.average = calculate_indoor_average
     else
       self.average = calculate_outdoor_average
     end

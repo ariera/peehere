@@ -29,6 +29,7 @@ gem 'google_places'
 gem 'rails_admin'
 
 gem 'api_taster'
+gem 'taps'
 group :test, :development do
   gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'mysql2'

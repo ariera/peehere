@@ -21,8 +21,9 @@ Peehere::Application.routes.draw do
   namespace :api, defaults: {format: 'xml'} do
     resources :users
     resources :locations do
-      post :rate, :on => :collection
-      get  :places, :on => :collection
+      post :rate,    :on => :collection
+      #post :comment, :on => :collection
+      get  :places,  :on => :collection
     end
   end
 
@@ -82,7 +83,7 @@ Peehere::Application.routes.draw do
           :'hidden'  => [true, false].sample,
           :'safe'    => [true, false].sample,
           :'overall' => [true, false].sample 
-        }
+        },
       }
 
       post '/api/locations/rate', {
@@ -91,6 +92,7 @@ Peehere::Application.routes.draw do
           :cache_id => 1,
           :description => 'Esto deberia sobreescribir descripcion',
           :name => 'Y esto el name',
+          :comment => "this is a comment",
         },
         :ratings => {
           :'wait'    => [true, false].sample,
@@ -99,6 +101,14 @@ Peehere::Application.routes.draw do
           :'overall' => [true, false].sample 
         }
       }
+
+      
+      #post '/api/locations/comment', {
+      #  :user_id => 1,
+      #  :location_id => 1,
+      #  :comment => "this is a comment"
+      #}
+
 
 
       #post '/api/locations/rate', {

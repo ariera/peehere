@@ -6,6 +6,7 @@ class Location < ActiveRecord::Base
   attr_accessible :address, :average, :description, :indoor, :latitude, :longitude, :name, :cache_id
   serialize :average, Hash
   geocoded_by :address
+  # FIXME: sometimes google times out when reverse geocoding, we should retry
   reverse_geocoded_by :latitude, :longitude
   after_validation :geocode_or_reverse_geocode
 
@@ -47,6 +48,8 @@ class Location < ActiveRecord::Base
   def update_statistics!
     self.update_average
     self.update_people_count
+    # FIXME: a save in this model might trigger a geocode or reverse_geocode call to Google
+    # this should be avoided
     self.save
   end
 

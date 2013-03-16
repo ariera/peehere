@@ -11,6 +11,9 @@ class PlacesCache < ActiveRecord::Base
     end
     places = GPlaces.spots(lat, long, :name => params[:name])
     caches = PlacesCache.persist_search(places)
+    
+    # don't return places that have already been converted to locations
+    caches = caches.select{|c| !Location.get_cached_ids.include?(c.id) } 
     self.to_location(caches)
   end
 

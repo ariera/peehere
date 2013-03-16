@@ -14,6 +14,10 @@ class Location < ActiveRecord::Base
   VALID_RATINGS_FOR_INDOORS =  [:pay, :wait, :paper, :overall]
   VALID_RATINGS_FOR_OUTDOORS = [:crowded, :hidden, :safe, :overall]
 
+  def self.get_cached_ids
+    self.where('cache_id IS NOT NULL').select(:cache_id).map(&:cache_id)
+  end
+
   def self.find_or_create(params)
     if params[:location_id].present?
       Location.find(params[:location_id])

@@ -35,4 +35,5 @@ group :test, :development do
 end
 group :development do
   gem 'sextant'
+  gem 'quiet_assets', '~> 1.0.1'
 end

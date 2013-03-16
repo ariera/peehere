@@ -10,6 +10,7 @@ class Location < ActiveRecord::Base
   after_validation :geocode_or_reverse_geocode
 
   DEFAULT_DISTANCE = 1 #in km
+  DEFAULT_LIMIT = 20 # return 20 results at most
   VALID_RATINGS_FOR_INDOORS =  [:pay, :wait, :paper, :overall]
   VALID_RATINGS_FOR_OUTDOORS = [:crowded, :hidden, :safe, :overall]
 
@@ -27,13 +28,14 @@ class Location < ActiveRecord::Base
 
   def self.find_by_address_or_coords_and_filter(params)
     locations = Location.scoped
-    locations = locations.where(:indoor => true) if params[:show] == 'indoor'
-    locations = locations.where(:indoor => false) if params[:show] == 'outdoor'
+    locations = locations.where(:indoor => true) if params[:show].to_s == 'indoor'
+    locations = locations.where(:indoor => false) if params[:show].to_s == 'outdoor'
 
     near_what = params[:address] if params[:address].present?
     near_what = [params[:latitude], params[:longitude]] if params[:latitude].present? 
 
     locations.near(near_what, params[:distance] || DEFAULT_DISTANCE)
+    locations.limit(params[:limit] || DEFAULT_LIMIT)
   end
 
   def update_statistics!

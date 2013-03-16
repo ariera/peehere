@@ -4,8 +4,8 @@ module Api
     def index
       locations = Location.find_by_address_or_coords_and_filter(params)
       respond_to do |format|
-        format.xml  { render :xml  => Location.all }
-        format.json { render :json => Location.all }
+        format.xml  { render :xml  => locations }
+        format.json { render :json => locations }
       end
     end
 

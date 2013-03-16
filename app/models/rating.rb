@@ -6,16 +6,16 @@ class Rating < ActiveRecord::Base
   def self.average_for_kind(kind, location_id)
     ratings = self.where(location_id:location_id, kind:kind)
     value = ratings.select{|r| r.value}.count.to_f / ratings.count.to_f
+    value = 1.0 if value.nan? && kind.to_s == 'overall'
     return value if kind.to_s == 'overall'
 
-    # this a bizarre way to convert percentage to 5 stars rating
-    #five_star_rating = 5.times{|i| return (i+1).to_f if 1/5.to_f * (i+1) >= value }
     self.convert_to_five_star_rating(kind, value)
   end
 
   def self.convert_to_five_star_rating(kind, value)
     # this a bizarre way to convert percentage to 5 stars rating
-    five_star_rating = 5.times{|i| return (i+1).to_f if 1/5.to_f * (i+1) >= value }
+    #debugger if kind=='hidden'
+    five_star_rating = 5.times{|i| return (i+1).to_f if 1/5.to_f * (i.to_f+1.0) >= value }
     case kind.to_sym
     when :pay, :wait, :crowded
       self.invert_five_star_rating(five_star_rating)

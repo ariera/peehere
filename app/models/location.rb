@@ -15,10 +15,11 @@ class Location < ActiveRecord::Base
   VALID_RATINGS_FOR_OUTDOORS = [:crowded, :hidden, :safe, :overall]
 
   def self.find_or_create(params)
-    if params[:location_id]
-      Location.find(params[:location_id]) 
-    elsif params[:location][:cache_id]
+    if params[:location_id].present?
+      Location.find(params[:location_id])
+    elsif params[:location][:cache_id].present?
       loc = PlacesCache.find(params[:location][:cache_id]).to_location
+      loc.attributes = params[:location]
       loc.save
       loc
     else

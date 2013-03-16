@@ -65,11 +65,32 @@ Peehere::Application.routes.draw do
       #   ]
       # }
 
+      desc 'params [:location =>  [:address, :latitude, :longitude, :indoor => [true, false], :description, :name, :cache_id] ]'
+      post '/api/locations/rate', {
+        :user_id => 1,
+        :location => {
+          :cache_id => nil,
+          :description => 'Hay millones de arbustos',
+          :name => 'La casucha',
+          :indoor => false,
+          :latitude => 40.401993,
+          :longitude => -3.688660,
+          :address => nil,          
+        },
+        :ratings => {
+          :'crowded' => [true, false].sample,
+          :'hidden'  => [true, false].sample,
+          :'safe'    => [true, false].sample,
+          :'overall' => [true, false].sample 
+        }
+      }
+
       post '/api/locations/rate', {
         :user_id => 1,
         :location => {
           :cache_id => 1,
-          :description => 'Hay millones de arbustos'
+          :description => 'Esto deberia sobreescribir descripcion',
+          :name => 'Y esto el name',
         },
         :ratings => {
           :'wait'    => [true, false].sample,
@@ -79,16 +100,17 @@ Peehere::Application.routes.draw do
         }
       }
 
-      post '/api/locations/rate', {
-        :user_id => 1,
-        :location_id => 1,
-        :ratings => {
-          :'crowded' => [true, false].sample,
-          :'hidden'  => [true, false].sample,
-          :'safe'    => [true, false].sample,
-          :'overall' => [true, false].sample
-        }
-      }
+
+      #post '/api/locations/rate', {
+      #  :user_id => 1,
+      #  :location_id => 1,
+      #  :ratings => {
+      #    :'crowded' => [true, false].sample,
+      #    :'hidden'  => [true, false].sample,
+      #    :'safe'    => [true, false].sample,
+      #    :'overall' => [true, false].sample
+      #  }
+      #}
 
 
       desc 'params [:address, :latitude, :longitude, :show => [:indoor, :outdoor, :all], :distance]'

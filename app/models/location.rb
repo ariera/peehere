@@ -2,7 +2,7 @@
 class Location < ActiveRecord::Base
   has_many :ratings
   has_many :comments
-  attr_accessor :cache_id
+  #attr_accessor :cache_id
   attr_accessible :address, :average, :description, :indoor, :latitude, :longitude, :name, :cache_id
   serialize :average, Hash
   geocoded_by :address

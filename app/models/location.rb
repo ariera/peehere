@@ -34,8 +34,9 @@ class Location < ActiveRecord::Base
     near_what = params[:address] if params[:address].present?
     near_what = [params[:latitude], params[:longitude]] if params[:latitude].present? 
 
-    locations.near(near_what, params[:distance] || DEFAULT_DISTANCE)
-    locations.limit(params[:limit] || DEFAULT_LIMIT)
+    locations = locations.near(near_what, params[:distance] || DEFAULT_DISTANCE)
+    locations = locations.order('distance')
+    locations = locations.limit(params[:limit] || DEFAULT_LIMIT)
   end
 
   def update_statistics!

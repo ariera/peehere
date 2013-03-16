@@ -7,6 +7,10 @@ class Location < ActiveRecord::Base
   serialize :average, Hash
   geocoded_by :address
   reverse_geocoded_by :latitude, :longitude
+  
+  validate :has_address_or_coordinates
+  validate :has_at_least_one_rating
+
   after_validation :geocode_or_reverse_geocode
 
   DEFAULT_DISTANCE = 1 #in km
@@ -155,6 +159,15 @@ class Location < ActiveRecord::Base
     "Porque el bano es el espacio mas intimo, Pee Here te hace de mejor amigo o de momento reflexivo",
   ]
 
+  private
 
+  def has_address_or_coordinates
+    self.errors[:address] = "Please provide an address or a latitude & longitude coordinates" unless address.present? || (latitude.present? && longitude.present?)
+  end
 
+  def has_at_least_one_rating
+    if self.new_record? && ratings.length == 0
+      self.errors[:ratings] = "Please provide at least one rating"
+    end
+  end
 end

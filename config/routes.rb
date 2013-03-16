@@ -91,11 +91,12 @@ Peehere::Application.routes.draw do
       }
 
 
-      desc 'params [:address, :latitude, :longitude, :show => [:indoor, :outdoor, :all], :distance]'
+      desc 'params [:address, :latitude, :longitude, :show => [:indoor, :outdoor, :all], :distance, :limit]'
       get '/api/locations', {
         latitude: 40.4238, 
         longitude: -3.7071,
         show: 'all',
+        limit: 10
       }
 
       get '/api/locations', {

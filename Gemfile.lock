@@ -182,6 +182,8 @@ GEM
       json (~> 1.4)
     redcarpet (2.2.2)
     remotipart (1.0.5)
+    role_playing (0.1.0)
+      activesupport (>= 3.0.0)
     rolify (3.2.0)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
@@ -268,6 +270,7 @@ DEPENDENCIES
   pg
   rails (= 3.2.12)
   rails_admin
+  role_playing
   rolify (>= 3.2.0)
   rspec-rails (>= 2.11.0)
   ruby-debug19

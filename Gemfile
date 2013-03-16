@@ -27,6 +27,7 @@ gem "haml-rails"
 gem 'geocoder'
 gem 'google_places'
 gem 'rails_admin'
+gem 'role_playing'
 
 gem 'api_taster'
 group :test, :development do

@@ -10,7 +10,7 @@ class Location < ActiveRecord::Base
   after_validation :geocode_or_reverse_geocode
 
   DEFAULT_DISTANCE = 1 #in km
-  DEFAULT_LIMIT = 20 # return 20 results at most
+  DEFAULT_LIMIT = 10 # return 10 results at most
   VALID_RATINGS_FOR_INDOORS =  [:pay, :wait, :paper, :overall]
   VALID_RATINGS_FOR_OUTDOORS = [:crowded, :hidden, :safe, :overall]
 

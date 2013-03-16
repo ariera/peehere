@@ -12,6 +12,18 @@ class Rating < ActiveRecord::Base
     self.convert_to_five_star_rating(kind, value)
   end
 
+  def self.average_of(kind, ratings)
+    return 0.0 if ratings.blank?
+    value = case kind.to_sym
+    when :pay, :wait, :crowded
+      # it is a good thing not having to pay, wait, or choosing a not crowded place to pee
+      ratings.select{|r| !r.value}
+    else # paper hidden safe overall
+      # on the other hand a bathroom with paper or a hidden spot are considered good things
+      ratings.select{|r| r.value}
+    end.count.to_f / ratings.count.to_f
+  end
+
   def self.convert_to_five_star_rating(kind, value)
     # this a bizarre way to convert percentage to 5 stars rating
     #debugger if kind=='hidden'

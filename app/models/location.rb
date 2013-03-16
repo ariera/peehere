@@ -110,9 +110,18 @@ class Location < ActiveRecord::Base
   end
 
   def to_xml(options={})
-    super(options.merge(include: :comments))
+    #options.merge!(include: :comments)
+    options.merge!(:except => [:created_at, :updated_at], :methods => :comments_html)    
+    super(options)
+  end
+
+  def comments_html
+    comments.map(&:to_html).join("<br />")
   end
   
+
+
+
   def to_tweet
     url = Rails.application.routes.url_helpers.location_url(self)
     url = 'http://pee-here.com'

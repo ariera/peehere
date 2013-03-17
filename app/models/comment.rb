@@ -9,7 +9,7 @@ class Comment < ActiveRecord::Base
   #end
 
   def to_html
-    "<strong>#{user_name}: </strong> #{body}"
+    "<strong>#{user_name.split("@")[0]}: </strong> #{body}"
   end
 
   def user_name

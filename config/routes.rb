@@ -21,6 +21,7 @@ Peehere::Application.routes.draw do
   namespace :api, defaults: {format: 'xml'} do
     resources :users
     resources :locations do
+      get :search, :on => :collection
       post :rate,    :on => :collection
       #post :comment, :on => :collection
       get  :places,  :on => :collection
@@ -122,6 +123,16 @@ Peehere::Application.routes.draw do
       #  }
       #}
 
+
+      #desc 'params[:address]'
+      #get '/api/locations/search', {
+      #  address:'Gran Via 32, Madrid'
+      #}
+
+      desc 'params [:address]'
+      get '/api/locations/search', {
+        address: 'Gran Via 32, Madrid'
+      }
 
       desc 'params [:address, :latitude, :longitude, :show => [:indoor, :outdoor, :all], :distance]'
       get '/api/locations', {

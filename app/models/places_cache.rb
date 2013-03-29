@@ -6,7 +6,7 @@ class PlacesCache < ActiveRecord::Base
   def self.find_places(params)
     lat, long = params[:latitude], params[:longitude]
     if params[:address]
-      loc = Location.new(params[:address])
+      loc = Location.new(address:params[:address])
       lat, long = loc.geocode
     end
     places = GPlaces.spots(lat, long, :name => params[:name])

@@ -9,6 +9,17 @@ module Api
       end
     end
 
+    def search
+      locations = Location.near(params[:address]).order('distance').limit(10)
+      google_places = PlacesCache.find_places(params)
+      results = (locations + google_places).uniq
+      
+      respond_to do |format|
+        format.xml  { render :xml  => results.to_xml }
+        format.json { render :json => results }
+      end      
+    end
+
     def show
       loc = Location.find(params[:id])
       respond_to do |format|
